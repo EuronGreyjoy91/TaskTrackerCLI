@@ -2,7 +2,7 @@ package com.fedor;
 
 import com.fedor.enumerator.Status;
 import com.fedor.model.Task;
-import com.fedor.repository.InMemoryTaskRepository;
+import com.fedor.repository.JSONTaskRepository;
 import com.fedor.repository.TaskRepository;
 
 import java.util.Arrays;
@@ -17,7 +17,7 @@ public class CLI {
 
     public CLI() {
         scanner = new Scanner(System.in);
-        taskRepository = new InMemoryTaskRepository();
+        taskRepository = new JSONTaskRepository();
         running = true;
 
         System.out.println("CLI Started");

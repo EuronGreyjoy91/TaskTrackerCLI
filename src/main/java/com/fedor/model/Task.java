@@ -2,12 +2,13 @@ package com.fedor.model;
 
 import com.fedor.enumerator.Status;
 
+import java.io.Serializable;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 
-public class Task {
+public class Task implements Serializable {
 
-    private final DateTimeFormatter dateTimeFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER_TO_STRING = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private int id;
     private String description;
@@ -19,6 +20,14 @@ public class Task {
         this.description = description;
         this.status = Status.TODO;
         this.createdAt = LocalDateTime.now();
+    }
+
+    public Task(int id, String description, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+        this.id = id;
+        this.description = description;
+        this.status = status;
+        this.createdAt = createdAt;
+        this.updatedAt = updatedAt;
     }
 
     public int getId() {
@@ -55,8 +64,18 @@ public class Task {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", status=" + status +
-                ", createdAt=" + createdAt.format(dateTimeFormatter) +
-                ", updatedAt=" + (updatedAt != null ? updatedAt.format(dateTimeFormatter) : null) +
+                ", createdAt=" + createdAt.format(DATE_TIME_FORMATTER_TO_STRING) +
+                ", updatedAt=" + (updatedAt != null ? updatedAt.format(DATE_TIME_FORMATTER_TO_STRING) : null) +
                 '}';
+    }
+
+    public String toJSON() {
+        return "{\n" +
+                "  \"id\": " + id + ",\n" +
+                "  \"description\": \"" + description + "\",\n" +
+                "  \"status\": \"" + status + "\",\n" +
+                "  \"createdAt\": \"" + createdAt + "\",\n" +
+                "  \"updatedAt\": \"" + updatedAt + "\",\n" +
+                "}";
     }
 }
