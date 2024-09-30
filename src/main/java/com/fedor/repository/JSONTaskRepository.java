@@ -23,7 +23,11 @@ public class JSONTaskRepository implements TaskRepository {
             if (myObj.createNewFile()) {
                 lastId = 0;
             } else {
-                lastId = 1;
+                List<Task> tasks = readFile();
+                if (tasks.isEmpty())
+                    lastId = 0;
+                else
+                    lastId = tasks.getLast().getId();
             }
         } catch (IOException e) {
             System.out.println("Error creating JSON file");
@@ -101,13 +105,11 @@ public class JSONTaskRepository implements TaskRepository {
                 json.append(line);
             }
 
-            if (json.isEmpty())
+            String stringJson = json.toString().replace("[", "").replace("]", "");
+            if (stringJson.isEmpty())
                 return tasks;
 
-            String[] taskObjects = json.toString()
-                    .replace("[", "")
-                    .replace("]", "")
-                    .split("},");
+            String[] taskObjects = stringJson.split("},");
 
             for (String taskObject : taskObjects) {
                 taskObject = taskObject.trim();

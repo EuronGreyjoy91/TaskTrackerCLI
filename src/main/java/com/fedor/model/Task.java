@@ -8,7 +8,7 @@ import java.time.format.DateTimeFormatter;
 
 public class Task implements Serializable {
 
-    public static final DateTimeFormatter DATE_TIME_FORMATTER_TO_STRING = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
+    public static final DateTimeFormatter DATE_TIME_FORMATTER = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
 
     private int id;
     private String description;
@@ -22,7 +22,13 @@ public class Task implements Serializable {
         this.createdAt = LocalDateTime.now();
     }
 
-    public Task(int id, String description, Status status, LocalDateTime createdAt, LocalDateTime updatedAt) {
+    public Task(
+            int id,
+            String description,
+            Status status,
+            LocalDateTime createdAt,
+            LocalDateTime updatedAt
+    ) {
         this.id = id;
         this.description = description;
         this.status = status;
@@ -64,8 +70,8 @@ public class Task implements Serializable {
                 "id=" + id +
                 ", description='" + description + '\'' +
                 ", status=" + status +
-                ", createdAt=" + createdAt.format(DATE_TIME_FORMATTER_TO_STRING) +
-                ", updatedAt=" + (updatedAt != null ? updatedAt.format(DATE_TIME_FORMATTER_TO_STRING) : null) +
+                ", createdAt=" + createdAt.format(DATE_TIME_FORMATTER) +
+                ", updatedAt=" + (updatedAt != null ? updatedAt.format(DATE_TIME_FORMATTER) : null) +
                 '}';
     }
 

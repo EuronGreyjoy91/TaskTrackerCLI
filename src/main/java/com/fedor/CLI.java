@@ -9,6 +9,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Scanner;
 
+
 public class CLI {
 
     private final Scanner scanner;
@@ -54,7 +55,7 @@ public class CLI {
         if (description.isEmpty())
             throw new IllegalArgumentException("No description provided");
 
-        Task taskToSave = new Task(description);
+        Task taskToSave = new Task(description.replaceAll("\"", "").replaceAll("'", ""));
         Task savedTask = taskRepository.add(taskToSave);
 
         System.out.println("Task added successfully (ID: " + savedTask.getId() + ")");
@@ -68,7 +69,7 @@ public class CLI {
             throw new IllegalArgumentException("No description provided");
 
         Task task = taskRepository.get(id);
-        task.setDescription(description);
+        task.setDescription(description.replaceAll("\"", "").replaceAll("'", ""));
 
         taskRepository.update(task);
         System.out.println("Task updated successfully (ID: " + id + ")");
@@ -86,16 +87,25 @@ public class CLI {
 
         Task task = taskRepository.get(id);
         task.setStatus(status);
+        taskRepository.update(task);
 
         System.out.println("Task updated successfully (ID: " + id + ")");
     }
 
     private void listTasks() {
-        System.out.println(taskRepository.list());
+        List<Task> tasks = taskRepository.list();
+        if (tasks.isEmpty())
+            System.out.println("No task available");
+        else
+            taskRepository.list().forEach(System.out::println);
     }
 
     private void listTasksByStatus(Status status) {
-        System.out.println(taskRepository.listByStatus(status));
+        List<Task> tasks = taskRepository.listByStatus(status);
+        if (tasks.isEmpty())
+            System.out.println("No task available for status " + status);
+        else
+            taskRepository.listByStatus(status).forEach(System.out::println);
     }
 
     private void showHelp() {
