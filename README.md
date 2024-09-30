@@ -7,7 +7,7 @@ Task Tracker CLI using Java 21
 ### Installation
 
 ```
-Just clone the repo, run it, and type of the following commands :)
+Just clone the repo, run it, and type one of the following commands :)
 ```
 
 ### Available commands
