@@ -1,8 +1,0 @@
-<component name="ArtifactManager">
-  <artifact type="jar" name="TaskTracker.main:jar">
-    <output-path>$PROJECT_DIR$/out/artifacts/TaskTracker_main_jar</output-path>
-    <root id="archive" name="TaskTracker.main.jar">
-      <element id="module-output" name="TaskTracker.main" />
-    </root>
-  </artifact>
-</component>
